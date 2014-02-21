@@ -11,9 +11,17 @@ ruleset b505198x2 {
         select when pageview ".*" setting ()
         pre {
 			text = "<p>This is some text that should appear within the main div.</p>"
+			form = <<
+			<form id="lab3_form" onsubmit="return false">
+				<input type="text" name="firstName" />
+				<input type="text" name="lastName" />
+				<input type="submit" value="Submit" />
+			</form>
+			>>;
         }
         every {
-            replace_html("#main",text)
+            replace_html("#main",text + form);
+			watch("#lab3_form", "submit");
         }
     }
 }
