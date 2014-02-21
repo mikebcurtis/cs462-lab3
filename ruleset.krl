@@ -1,28 +1,57 @@
-ruleset HelloWorldApp {
-  meta {
-    name "Hello World"
-    description <<
-      Hello World
-    >>
-    author ""
-    logging off
-	use module a169x701 alias CloudRain
-	use module a41x196  alias SquareTag	
-  }
-  dispatch {
-  }
-  global {
-  }
-  rule HelloWorld is active {
-    select when web cloudAppSelected
-	pre {
-		my_html = <<
-			<h5>Hello, World!</h5>
-		>>;
-	}
-	{
-		SquareTag:inject_styling();
-		CloudRain:createLoadPanel("Hello World!", {}, my_html);
-	}
-  }
+ruleset b505198x2 {
+    meta {
+        name "cs462 lab 2"
+        author "mike curtis"
+        logging off
+    }
+    dispatch {
+       
+    }
+    
+    rule simple_notifications {
+        select when pageview ".*" setting ()
+        pre {
+        }
+        every {
+            notify("Hello World", "This is a sample rule.") with sticky = true;
+            notify("Another Notify", "Second notification.") with sticky = true;
+        }
+    }
+    
+    rule query_notification {
+        select when pageview ".*" setting ()
+        pre {
+            get_name = function(query) {
+                res_arr = query.extract(re/&\\?name=(\w+)/g)
+                res_arr[0]
+            };
+            name = get_name(page:url("query"))
+        }
+        every {
+            notify("Third Notify", name eq "" => "Hello Monkey" |
+"Hello " + name) with sticky = true;
+        }
+    }
+
+    rule clear_count {
+        select when pageview ".*" setting ()
+        pre {
+            query = page:url("query");
+        }
+        always {
+            clear ent:count if query.match(re/clear/)
+        }
+    }
+
+    rule counting_notification {
+        select when pageview ".*" setting ()
+        pre {
+            count = ent:count + 1;
+        }
+        if count <= 5 then
+            notify("Fired count", count) with sticky = true;
+        fired {
+            ent:count += 1 from 1;
+        }
+    }
 }
