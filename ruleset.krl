@@ -19,7 +19,7 @@ ruleset b505198x2 {
 			</form>
 			>>;
         }
-        every {
+        if(not ent:firstname || not ent:lastname) then {
             append("#main",text);
 			append("#main",form);
 			watch("#lab3_form", "submit");
@@ -39,5 +39,14 @@ ruleset b505198x2 {
 			set ent:firstname firstname;
 			set ent:lastname lastname;
 		}
+	}
+	
+	rule show_name {
+		select when pageview ".*" setting ()
+		pre {
+			firstname = current ent:firstname;
+			lastname = current ent:lastname;
+		}
+		append("#main","<p>" + firstname + " " + lastname + "</p>");
 	}
 }
