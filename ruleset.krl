@@ -5,7 +5,6 @@ ruleset b505198x2 {
         logging on
     }
     dispatch {
-       
     }
     
     rule show_form {
