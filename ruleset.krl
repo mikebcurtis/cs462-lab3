@@ -51,6 +51,7 @@ ruleset b505198x2 {
 			lastname = current ent:lastname;
 		}
 		if (ent:firstname && ent:lastname) then {
+			notify("Submitted Name", firstname + " " + lastname) with sticky = true;
 			replace_inner("#main","<p>#{firstname} #{lastname}</p>");
 		}
 	}
