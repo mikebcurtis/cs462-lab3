@@ -51,7 +51,7 @@ ruleset b505198x2 {
 			lastname = current ent:lastname;
 		}
 		if (ent:firstname && ent:lastname) then {
-			append("#main","<p>" + firstname + " " + lastname + "</p>");
+			replace_inner("#main","<p>#{firstname} #{lastname}</p>");
 		}
 	}
 }
