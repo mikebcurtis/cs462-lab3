@@ -13,6 +13,7 @@ ruleset b505198x2 {
 			firstname = event:attr("firstName");
 			lastname = event:attr("lastName");
 		}
+		replace_html("#main","<p>#{firstname} #{lastname}</p>");
 		fired {
 			set ent:firstname firstname;
 			set ent:lastname lastname;
