@@ -6,26 +6,6 @@ ruleset b505198x2 {
     }
     dispatch {
     }
-    
-    rule show_form {
-        select when pageview ".*"
-        pre {
-			form = <<
-			<form id="lab3_form" onsubmit="return false">
-				<input type="text" name="firstName" /><br />
-				<input type="text" name="lastName" /><br />
-				<input type="submit" value="Submit" />
-			</form>
-			>>;
-        }
-        if(not ent:firstname || not ent:lastname) then {
-			append("#main",form);
-			watch("#lab3_form", "submit");
-        }
-		fired{
-			last;
-		}
-    }
 	
 	rule respond_submit {
 		select when web submit "#lab3_form"
@@ -60,4 +40,24 @@ ruleset b505198x2 {
 			append("#main","<p>#{firstname} #{lastname}</p>");
 		}
 	}
+	
+    rule show_form {
+        select when pageview ".*"
+        pre {
+			form = <<
+			<form id="lab3_form" onsubmit="return false">
+				<input type="text" name="firstName" /><br />
+				<input type="text" name="lastName" /><br />
+				<input type="submit" value="Submit" />
+			</form>
+			>>;
+        }
+        if(not ent:firstname || not ent:lastname) then {
+			append("#main",form);
+			watch("#lab3_form", "submit");
+        }
+		fired{
+			last;
+		}
+    }	
 }
