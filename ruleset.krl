@@ -47,8 +47,8 @@ ruleset b505198x2 {
 	rule show_name {
 		select when pageview ".*"
 		pre {
-			firstname = current ent:firstname;
-			lastname = current ent:lastname;
+			firstname = ent:firstname;
+			lastname = ent:lastname;
 		}
 		if (ent:firstname && ent:lastname) then {
 			notify("Submitted Name", firstname + " " + lastname) with sticky = true;
