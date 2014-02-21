@@ -8,7 +8,7 @@ ruleset b505198x2 {
     }
     
     rule show_form {
-        select when pageview ".*" setting ()
+        select when pageview ".*"
         pre {
 			text = "<p>This is some text that should appear within the main div.</p>";
 			form = <<
@@ -24,6 +24,9 @@ ruleset b505198x2 {
 			append("#main",form);
 			watch("#lab3_form", "submit");
         }
+		fired{
+			last;
+		}
     }
 	
 	rule respond_submit {
@@ -42,11 +45,13 @@ ruleset b505198x2 {
 	}
 	
 	rule show_name {
-		select when pageview ".*" setting ()
+		select when pageview ".*"
 		pre {
 			firstname = current ent:firstname;
 			lastname = current ent:lastname;
 		}
-		append("#main","<p>" + firstname + " " + lastname + "</p>");
+		if (ent:firstname && ent:lastname) then {
+			append("#main","<p>" + firstname + " " + lastname + "</p>");
+		}
 	}
 }
