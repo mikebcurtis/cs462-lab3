@@ -55,4 +55,15 @@ ruleset b505198x2 {
 			replace_inner("#main","<p>#{firstname} #{lastname}</p>");
 		}
 	}
+	
+    rule clear_name {
+        select when pageview ".*" setting ()
+        pre {
+            query = page:url("query");
+        }
+        always {
+            clear ent:firstname if query.match(re/clear=1/);
+			clear ent:lastname if query.match(re/clear=1/);
+        }
+    }
 }
