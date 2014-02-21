@@ -25,4 +25,16 @@ ruleset b505198x2 {
 			watch("#lab3_form", "submit");
         }
     }
+	
+	rule respond_submit {
+		select when web submit "#lab3_form"
+		pre {
+			firstname = event:attr("firstName");
+			lastname = event:attr("lastName");
+		}
+		fired {
+			set ent:firstname firstname;
+			set ent:lastname lastname;
+		}
+	}
 }
