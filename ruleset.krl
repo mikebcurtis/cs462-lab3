@@ -20,7 +20,7 @@ ruleset b505198x2 {
 			>>;
         }
         every {
-            replace_html("#main",text);
+            append("#main",text);
 			append("#main",form);
 			watch("#lab3_form", "submit");
         }
