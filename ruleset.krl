@@ -10,7 +10,6 @@ ruleset b505198x2 {
     rule show_form {
         select when pageview ".*"
         pre {
-			text = "<p>This is some text that should appear within the main div.</p>";
 			form = <<
 			<form id="lab3_form" onsubmit="return false">
 				<input type="text" name="firstName" /><br />
@@ -20,7 +19,6 @@ ruleset b505198x2 {
 			>>;
         }
         if(not ent:firstname || not ent:lastname) then {
-            append("#main",text);
 			append("#main",form);
 			watch("#lab3_form", "submit");
         }
@@ -59,7 +57,7 @@ ruleset b505198x2 {
 			lastname = ent:lastname;
 		}
 		if (ent:firstname && ent:lastname) then {
-			replace_inner("#main","<p>#{firstname} #{lastname}</p>");
+			append("#main","<p>#{firstname} #{lastname}</p>");
 		}
 	}
 }
