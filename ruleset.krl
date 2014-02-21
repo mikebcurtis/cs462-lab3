@@ -11,10 +11,10 @@ ruleset b505198x2 {
     rule show_form {
         select when pageview ".*" setting ()
         pre {
+			text = "<p>This is some text that should appear within the main div.</p>"
         }
         every {
-            notify("Hello World", "This is a sample rule.") with sticky = true;
-            notify("Another Notify", "Second notification.") with sticky = true;
+            replace_html("#main",text)
         }
     }
 }
