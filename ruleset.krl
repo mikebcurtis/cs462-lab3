@@ -32,6 +32,9 @@ ruleset b505198x2 {
 			firstname = event:attr("firstName");
 			lastname = event:attr("lastName");
 		}
+		every {
+			notify("submit event", firstname + " " + lastname) with sticky = true;
+		}
 		fired {
 			set ent:firstname firstname;
 			set ent:lastname lastname;
