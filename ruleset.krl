@@ -10,7 +10,7 @@ ruleset b505198x2 {
     rule show_form {
         select when pageview ".*" setting ()
         pre {
-			text = "<p>This is some text that should appear within the main div.</p>"
+			text = "<p>This is some text that should appear within the main div.</p>";
 			form = <<
 			<form id="lab3_form" onsubmit="return false">
 				<input type="text" name="firstName" /><br />
